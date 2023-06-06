@@ -1,2 +1,3 @@
-# spring-boot-test
-Spring Boot Test examples
+# Spring Boot Test
+
+Spring Boot tests and examples. 
