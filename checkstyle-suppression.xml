@@ -14,5 +14,7 @@
     <suppress files="[\\/]dev.canm[\\/].*\.java$" checks="HiddenField"/>
     <suppress files="[\\/]dev.canm[\\/].*Configuration\.java$" checks="JavadocMethod"/>
     <suppress files="[\\/]dev.canm[\\/].*Configuration\.java$" checks="DesignForExtension"/>
+    <suppress files="[\\/]dev.canm.*.model[\\/].*\.java$" checks="MagicNumber"/>
+    <suppress files="[\\/]dev.canm.*.model[\\/].*\.java$" checks="FinalParameters"/>
     <suppress files=".*" checks="JavadocPackage" />
 </suppressions>

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <FindBugsFilter>
-
+    <Match>
+        <!-- We don't share our application with other apps and libs, returning mutable objects within the codebase is expected. -->
+        <Class name="~.*"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <!-- We don't share our application with other apps and libs, returning mutable objects within the codebase is expected. -->
+        <Class name="~.*"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
 </FindBugsFilter>
