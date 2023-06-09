@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class EmployeeServiceIntegrationTest {
+class EmployeeServiceIntegrationTest {
 
     @Autowired
     private EmployeeService employeeService;
@@ -26,8 +26,6 @@ public class EmployeeServiceIntegrationTest {
 
     @Test
     void should_returnEmployeeList_when_getAllEmployeesCalled() {
-        // GIVEN
-
         // WHEN
         Employee expectedEmployee = new Employee();
         expectedEmployee.setId(1L);
