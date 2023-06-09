@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +31,7 @@ class EmployeeServiceIntegrationTest {
         Employee expectedEmployee = new Employee();
         expectedEmployee.setId(1L);
         expectedEmployee.setName("Bob");
-        expectedEmployee.setBirthday(java.sql.Date.valueOf("2000-01-01"));
+        expectedEmployee.setBirthday(new Date());
         when(employeeRepository.findAll()).thenReturn(List.of(expectedEmployee));
         final List<Employee> allEmployees = employeeService.getAllEmployees();
 
