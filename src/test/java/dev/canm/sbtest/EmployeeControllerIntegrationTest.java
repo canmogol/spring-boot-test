@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -35,12 +35,10 @@ class EmployeeControllerIntegrationTest {
         final Employee employee = new Employee();
         employee.setId(1L);
         employee.setName("Bob");
-        employee.setBirthday(new Date());
-
-        // WHEN
+        employee.setBirthday(LocalDate.now());
         when(employeeService.getAllEmployees()).thenReturn(List.of(employee));
 
-        // THEN
+        // WHEN / THEN
         mockMvc.perform(
                         get("/employees")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -50,7 +48,6 @@ class EmployeeControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].name", is(employee.getName())))
                 .andExpect(jsonPath("$[0].birthday").exists());
-
     }
 
 }

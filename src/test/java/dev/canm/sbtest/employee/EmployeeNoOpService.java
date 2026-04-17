@@ -7,7 +7,7 @@ import java.util.List;
 
 public class EmployeeNoOpService implements EmployeeService {
 
-    private static final List<Employee> employees = new ArrayList<>();
+    private final List<Employee> employees = new ArrayList<>();
 
     @Override
     public List<Employee> getAllEmployees() {

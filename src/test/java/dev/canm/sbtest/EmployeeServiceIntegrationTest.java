@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,12 +27,14 @@ class EmployeeServiceIntegrationTest {
 
     @Test
     void should_returnEmployeeList_when_getAllEmployeesCalled() {
-        // WHEN
+        // GIVEN
         Employee expectedEmployee = new Employee();
         expectedEmployee.setId(1L);
         expectedEmployee.setName("Bob");
-        expectedEmployee.setBirthday(new Date());
+        expectedEmployee.setBirthday(LocalDate.now());
         when(employeeRepository.findAll()).thenReturn(List.of(expectedEmployee));
+
+        // WHEN
         final List<Employee> allEmployees = employeeService.getAllEmployees();
 
         // THEN

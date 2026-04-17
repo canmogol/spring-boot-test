@@ -7,13 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-// When @Transactional annotation is declared at the class level,
-// it applies as a default to all methods of the declaring class and its subclasses.
-//
-// If no custom rollback rules are configured in this annotation,
-// the transaction will roll back on RuntimeException and Error but not on CHECKED exceptions.
-// Custom rules may be configured via rollbackFor/noRollbackFor and rollbackForClassName/noRollbackForClassName,
-// which allow rules to be specified as types or patterns, respectively.
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -29,6 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }

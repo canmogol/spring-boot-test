@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +27,7 @@ class EmployeeRepositoryIntegrationTest {
         // GIVEN
         final Employee expectedEmployee = new Employee();
         expectedEmployee.setName("Bob");
-        expectedEmployee.setBirthday(new Date());
+        expectedEmployee.setBirthday(LocalDate.now());
 
         entityManager.persist(expectedEmployee);
         entityManager.flush();

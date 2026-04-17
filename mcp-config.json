@@ -1,0 +1,23 @@
+{
+  "servers": [
+    {
+      "name": "local-filesystem",
+      "type": "filesystem",
+      "root": "/Users/ymor/github/canmogol/spring-boot-test",
+      "read_only": false
+    },
+    {
+      "name": "github-mcp",
+      "type": "github",
+      "repo": "https://github.com/canmogol/spring-boot-test.git",
+      "token_env": "GITHUB_TOKEN",
+      "read_only": true
+    },
+    {
+      "name": "git-local",
+      "type": "git",
+      "root": "/Users/ymor/github/canmogol/spring-boot-test",
+      "read_only": true
+    }
+  ]
+}

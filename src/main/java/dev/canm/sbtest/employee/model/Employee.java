@@ -7,24 +7,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "person")
 public class Employee {
 
-    // Specifies the primary key of an entity.
     @Id
-    // 'GenerationType.AUTO' Indicates that the persistence provider should pick an appropriate strategy
-    // for the particular database.
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // The @Size annotated element size must be between the specified boundaries (included).
     @Size(min = 3, max = 20)
     private String name;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     public Long getId() {
         return id;
@@ -42,11 +38,29 @@ public class Employee {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Employee employee)) {
+            return false;
+        }
+        return id != null && id.equals(employee.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{id=" + id + ", name='" + name + "'}";
     }
 }
