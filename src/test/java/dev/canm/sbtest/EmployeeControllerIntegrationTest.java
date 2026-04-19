@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.doThrow;
 
 @WebMvcTest(EmployeeRestController.class)
 class EmployeeControllerIntegrationTest {
@@ -45,6 +46,17 @@ class EmployeeControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].name", is(employee.name())))
                 .andExpect(jsonPath("$[0].birthday").exists());
+    }
+
+    @Test
+    void should_returnStatus500_when_serviceThrowsUnexpectedException() throws Exception {
+        // GIVEN
+        doThrow(new RuntimeException("unexpected")).when(employeeService).getAllEmployees();
+
+        // WHEN / THEN
+        mockMvc.perform(get("/employees").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.code", is("INTERNAL_ERROR")));
     }
 
 }

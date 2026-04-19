@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -94,6 +95,24 @@ class ApplicationIntegrationTest {
         assertThat(actualEmployee.id()).isNotNull();
         assertThat(actualEmployee.birthday()).isEqualTo(expectedBirthday);
         assertThat(actualEmployee.name()).isEqualTo(expectedName);
+    }
+
+    @Test
+    void should_returnStatus400_when_postEmployeesCalledWithInvalidRequest() throws Exception {
+        // GIVEN — name too short (< 3 chars), birthday missing
+        final String invalidRequestJson = "{\"name\":\"Bo\"}";
+
+        // WHEN
+        final MockHttpServletRequestBuilder postEmployee = post("/employees")
+                .content(invalidRequestJson)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // THEN
+        mockMvc.perform(postEmployee)
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.code", is("VALIDATION_ERROR")))
+                .andExpect(jsonPath("$.errors", hasSize(2)));
     }
 
 }
