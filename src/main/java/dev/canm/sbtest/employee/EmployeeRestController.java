@@ -1,6 +1,8 @@
 package dev.canm.sbtest.employee;
 
 import dev.canm.sbtest.employee.dto.EmployeeDTO;
+import dev.canm.sbtest.employee.dto.EmployeeRequest;
+import dev.canm.sbtest.employee.dto.EmployeeResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,19 +26,30 @@ public class EmployeeRestController {
     }
 
     @GetMapping
-    public List<EmployeeDTO> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public List<EmployeeResponse> getAllEmployees() {
+        return employeeService.getAllEmployees().stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody @Valid final EmployeeDTO employee) {
-        final EmployeeDTO savedEmployee = employeeService.save(employee);
+    public ResponseEntity<EmployeeResponse> createEmployee(
+            @RequestBody @Valid final EmployeeRequest request) {
+        final EmployeeDTO saved = employeeService.save(toDTO(request));
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(savedEmployee.id())
+                .buildAndExpand(saved.id())
                 .toUri();
-        return ResponseEntity.created(location).body(savedEmployee);
+        return ResponseEntity.created(location).body(toResponse(saved));
+    }
+
+    private EmployeeDTO toDTO(final EmployeeRequest request) {
+        return new EmployeeDTO(null, request.name(), request.birthday());
+    }
+
+    private EmployeeResponse toResponse(final EmployeeDTO dto) {
+        return new EmployeeResponse(dto.id(), dto.name(), dto.birthday());
     }
 
 }
