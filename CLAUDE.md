@@ -80,12 +80,12 @@ claude code .
 # 2. Work on feature/fix
 # ... make code changes ...
 
-# 3. Add tests (load test-quality skill)
-> view .claude/skills/test-quality/SKILL.md
+# 3. Add tests (load s-test-add-improve skill)
+> view .claude/skills/s-test-add-improve/SKILL.md
 > "Add tests for new functionality in class X"
 
-# 4. Commit (load git-commit skill)
-> view .claude/skills/git-commit/SKILL.md
+# 4. Commit (load s-commit-to-git skill)
+> view .claude/skills/s-commit-to-git/SKILL.md
 > "Commit staged changes"
 
 # 5. Push and create PR
@@ -97,7 +97,7 @@ claude code .
 # Monday morning: Issue triage
 claude code .
 
-> view .claude/skills/issue-triage/SKILL.md
+> view .claude/skills/s-triage-issue/SKILL.md
 > "Triage the last 20 issues, categorize and prioritize"
 
 # Review suggested actions
@@ -175,9 +175,9 @@ open target/site/jacoco/index.html
 ### Quick skill loading
 ```bash
 # Add to your shell alias
-alias cc-commit='echo "view .claude/skills/git-commit/SKILL.md"'
-alias cc-test='echo "view .claude/skills/test-quality/SKILL.md"'
-alias cc-triage='echo "view .claude/skills/issue-triage/SKILL.md"'
+alias cc-commit='echo "view .claude/skills/s-commit-to-git/SKILL.md"'
+alias cc-test='echo "view .claude/skills/s-test-add-improve/SKILL.md"'
+alias cc-triage='echo "view .claude/skills/s-triage-issue/SKILL.md"'
 ```
 
 ### Session continuity
