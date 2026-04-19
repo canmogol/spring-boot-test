@@ -376,3 +376,12 @@ For large APIs:
    # Find unversioned APIs
    grep -r "@RequestMapping.*api" --include="*.java" | grep -v "/v[0-9]"
    ```
+
+### Build Commands
+- Run the `mvn clean install` command after making changes to ensure everything compiles and tests pass.
+
+
+```bash
+# Maven build command
+mvn clean install
+```

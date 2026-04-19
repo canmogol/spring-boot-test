@@ -143,15 +143,13 @@ To optimize token usage:
 ```bash
 # Maven
 mvn clean install
-mvn test
-mvn jacoco:report
 
 # Check test coverage
 open target/site/jacoco/index.html
 ```
 
 ### Testing Strategy
-- Target: 80%+ coverage on core logic
+- Target: 90%+ coverage on core logic
 - Focus: Business logic, not boilerplate
 - Tools: JUnit 5, AssertJ, Mockito
 
