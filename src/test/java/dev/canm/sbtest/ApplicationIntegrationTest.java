@@ -2,8 +2,9 @@ package dev.canm.sbtest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.canm.sbtest.employee.EmployeeRepository;
+import dev.canm.sbtest.employee.dto.EmployeeRequest;
+import dev.canm.sbtest.employee.dto.EmployeeResponse;
 import dev.canm.sbtest.employee.model.Employee;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.time.LocalDate;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -71,17 +71,16 @@ class ApplicationIntegrationTest {
     @Test
     void should_createAnEmployee_when_postEmployeesCalled() throws Exception {
         // GIVEN
-        final Employee employee = new Employee();
         final String expectedName = "Bob";
-        employee.setName(expectedName);
-        employee.setBirthday(LocalDate.of(1990, 1, 1));
-        final String employeeString = objectMapper.writeValueAsString(employee);
+        final LocalDate expectedBirthday = LocalDate.of(1990, 1, 1);
+        final EmployeeRequest request = new EmployeeRequest(expectedName, expectedBirthday);
+        final String requestJson = objectMapper.writeValueAsString(request);
 
         final ResultMatcher nameMatcher = jsonPath("$.name", is(expectedName));
 
         // WHEN
         final MockHttpServletRequestBuilder postEmployee = post("/employees")
-                .content(employeeString)
+                .content(requestJson)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // THEN
@@ -90,11 +89,11 @@ class ApplicationIntegrationTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(nameMatcher)
                 .andReturn();
-        final String actualEmployeeJSON = mvcResult.getResponse().getContentAsString();
-        final Employee actualEmployee = objectMapper.readValue(actualEmployeeJSON, Employee.class);
-        assertNotNull(actualEmployee.getId());
-        assertEquals(employee.getBirthday(), actualEmployee.getBirthday());
-        assertEquals(employee.getName(), actualEmployee.getName());
+        final String responseJson = mvcResult.getResponse().getContentAsString();
+        final EmployeeResponse actualEmployee = objectMapper.readValue(responseJson, EmployeeResponse.class);
+        assertThat(actualEmployee.id()).isNotNull();
+        assertThat(actualEmployee.birthday()).isEqualTo(expectedBirthday);
+        assertThat(actualEmployee.name()).isEqualTo(expectedName);
     }
 
 }
