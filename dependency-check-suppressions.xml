@@ -3,7 +3,15 @@
     <suppress>
         <notes><![CDATA[
         We don't consume externally provided Yaml files, only from trusted internal sources.
+        -- SnakeYaml's Constructor() class does not restrict types which can be instantiated during deserialization.
     ]]></notes>
         <cve>CVE-2022-1471</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        We don't use socket appenders in our logging configuration.
+        -- The Socket Appender in Apache Log4j Core versions 2.0-beta9 through 2.25.2 does not perform TLS hostname verification of the peer certificate.
+    ]]></notes>
+        <cve>CVE-2025-68161</cve>
     </suppress>
 </suppressions>
