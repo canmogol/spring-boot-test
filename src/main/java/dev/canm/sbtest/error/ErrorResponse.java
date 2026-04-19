@@ -1,4 +1,4 @@
-package dev.canm.sbtest.common;
+package dev.canm.sbtest.error;
 
 import java.time.Instant;
 import java.util.List;

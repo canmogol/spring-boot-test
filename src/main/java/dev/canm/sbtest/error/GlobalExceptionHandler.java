@@ -1,4 +1,4 @@
-package dev.canm.sbtest.common;
+package dev.canm.sbtest.error;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
