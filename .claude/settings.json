@@ -10,5 +10,8 @@
       "Bash(git diff *)",
       "Bash(git branch *)"
     ]
+  },
+  "enabledPlugins": {
+    "mind@memvid": true
   }
 }
