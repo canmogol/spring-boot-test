@@ -1,6 +1,6 @@
 package dev.canm.sbtest.employee;
 
-import dev.canm.sbtest.employee.model.Employee;
+import dev.canm.sbtest.employee.dto.EmployeeDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,17 +24,17 @@ public class EmployeeRestController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeDTO> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid final Employee employee) {
-        final Employee savedEmployee = employeeService.save(employee);
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody @Valid final EmployeeDTO employee) {
+        final EmployeeDTO savedEmployee = employeeService.save(employee);
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(savedEmployee.getId())
+                .buildAndExpand(savedEmployee.id())
                 .toUri();
         return ResponseEntity.created(location).body(savedEmployee);
     }

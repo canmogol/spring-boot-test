@@ -2,7 +2,7 @@ package dev.canm.sbtest;
 
 import dev.canm.sbtest.employee.EmployeeService;
 import dev.canm.sbtest.employee.EmployeeTestContextConfiguration;
-import dev.canm.sbtest.employee.model.Employee;
+import dev.canm.sbtest.employee.dto.EmployeeDTO;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -28,7 +28,7 @@ class EmployeeIntegrationTest {
     @Test
     void should_returnEmployeeList_when_getAllEmployeesCalled() {
         // WHEN
-        final List<Employee> allEmployees = employeeService.getAllEmployees();
+        final List<EmployeeDTO> allEmployees = employeeService.getAllEmployees();
 
         // THEN
         assertThat(allEmployees).isEmpty();
@@ -39,18 +39,16 @@ class EmployeeIntegrationTest {
         // GIVEN
         final String expectedName = "Bob";
         final LocalDate expectedBirthday = LocalDate.of(2000, 1, 1);
-        final Employee expectedEmployee = new Employee();
-        expectedEmployee.setName(expectedName);
-        expectedEmployee.setBirthday(expectedBirthday);
+        final EmployeeDTO request = new EmployeeDTO(null, expectedName, expectedBirthday);
 
         // WHEN
-        final Employee actualEmployee = employeeService.save(expectedEmployee);
+        final EmployeeDTO actualEmployee = employeeService.save(request);
 
         // THEN
         assertNotNull(actualEmployee);
-        assertNotNull(actualEmployee.getId());
-        assertEquals(expectedName, actualEmployee.getName());
-        assertEquals(expectedBirthday, actualEmployee.getBirthday());
+        assertNotNull(actualEmployee.id());
+        assertEquals(expectedName, actualEmployee.name());
+        assertEquals(expectedBirthday, actualEmployee.birthday());
     }
 
 }

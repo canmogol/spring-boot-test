@@ -3,6 +3,8 @@ package dev.canm.sbtest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.canm.sbtest.employee.EmployeeRepository;
 import dev.canm.sbtest.employee.model.Employee;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,6 +43,11 @@ class ApplicationIntegrationTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @BeforeEach
+    void beforeEach() {
+        employeeRepository.deleteAll();
+    }
 
     @Test
     void should_returnStatus200_when_getEmployeesRequest() throws Exception {

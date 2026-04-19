@@ -1,12 +1,12 @@
 package dev.canm.sbtest.employee;
 
-import dev.canm.sbtest.employee.model.Employee;
+import dev.canm.sbtest.employee.dto.EmployeeDTO;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    List<Employee> getAllEmployees();
+    List<EmployeeDTO> getAllEmployees();
 
-    Employee save(Employee employee);
+    EmployeeDTO save(EmployeeDTO employee);
 }

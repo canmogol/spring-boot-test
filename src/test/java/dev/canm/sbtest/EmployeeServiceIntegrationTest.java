@@ -2,6 +2,7 @@ package dev.canm.sbtest;
 
 import dev.canm.sbtest.employee.EmployeeRepository;
 import dev.canm.sbtest.employee.EmployeeService;
+import dev.canm.sbtest.employee.dto.EmployeeDTO;
 import dev.canm.sbtest.employee.model.Employee;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +36,16 @@ class EmployeeServiceIntegrationTest {
         when(employeeRepository.findAll()).thenReturn(List.of(expectedEmployee));
 
         // WHEN
-        final List<Employee> allEmployees = employeeService.getAllEmployees();
+        final List<EmployeeDTO> allEmployees = employeeService.getAllEmployees();
 
         // THEN
         assertNotNull(allEmployees);
         assertFalse(allEmployees.isEmpty());
         assertEquals(1, allEmployees.size());
-        final Employee actualEmployee = allEmployees.get(0);
-        assertEquals(expectedEmployee.getId(), actualEmployee.getId());
-        assertEquals(expectedEmployee.getName(), actualEmployee.getName());
-        assertEquals(expectedEmployee.getBirthday(), actualEmployee.getBirthday());
+        final EmployeeDTO actualEmployee = allEmployees.get(0);
+        assertEquals(expectedEmployee.getId(), actualEmployee.id());
+        assertEquals(expectedEmployee.getName(), actualEmployee.name());
+        assertEquals(expectedEmployee.getBirthday(), actualEmployee.birthday());
     }
 
 }

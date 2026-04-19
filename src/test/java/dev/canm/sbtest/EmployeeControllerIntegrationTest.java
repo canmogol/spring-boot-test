@@ -2,7 +2,7 @@ package dev.canm.sbtest;
 
 import dev.canm.sbtest.employee.EmployeeRestController;
 import dev.canm.sbtest.employee.EmployeeService;
-import dev.canm.sbtest.employee.model.Employee;
+import dev.canm.sbtest.employee.dto.EmployeeDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,10 +32,7 @@ class EmployeeControllerIntegrationTest {
     @Test
     void should_returnEmployeeList_when_getAllEmployeesCalled() throws Exception {
         // GIVEN
-        final Employee employee = new Employee();
-        employee.setId(1L);
-        employee.setName("Bob");
-        employee.setBirthday(LocalDate.now());
+        final EmployeeDTO employee = new EmployeeDTO(1L, "Bob", LocalDate.now());
         when(employeeService.getAllEmployees()).thenReturn(List.of(employee));
 
         // WHEN / THEN
@@ -46,7 +43,7 @@ class EmployeeControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].name", is(employee.getName())))
+                .andExpect(jsonPath("$[0].name", is(employee.name())))
                 .andExpect(jsonPath("$[0].birthday").exists());
     }
 

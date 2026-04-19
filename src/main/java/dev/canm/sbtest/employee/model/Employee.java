@@ -5,19 +5,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "person")
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Size(min = 3, max = 20)
     private String name;
 
     private LocalDate birthday;
@@ -51,16 +50,23 @@ public class Employee {
         if (!(obj instanceof Employee employee)) {
             return false;
         }
-        return id != null && id.equals(employee.id);
+        return Objects.equals(id, employee.id);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        if (this.id == null) {
+            return getClass().hashCode();
+        }
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "Employee{id=" + id + ", name='" + name + "'}";
+        return "Employee{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", birthday=" + birthday
+                + '}';
     }
 }
