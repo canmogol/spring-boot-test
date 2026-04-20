@@ -26,10 +26,11 @@ public class EmployeeRestController {
     }
 
     @GetMapping
-    public List<EmployeeResponse> getAllEmployees() {
-        return employeeService.getAllEmployees().stream()
+    public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
+        final List<EmployeeResponse> employees = employeeService.getAllEmployees().stream()
                 .map(this::toResponse)
                 .toList();
+        return ResponseEntity.ok(employees);
     }
 
     @PostMapping
