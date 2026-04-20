@@ -11,7 +11,5 @@
       "Bash(git branch *)"
     ]
   },
-  "enabledPlugins": {
-    "mind@memvid": true
-  }
+  "enabledPlugins": {}
 }
